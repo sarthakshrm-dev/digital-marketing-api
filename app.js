@@ -12,7 +12,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
     res.send("Welcome to the api's")
 });
 
