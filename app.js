@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const connectDB = require('./config/database');
 const itemRoutes = require('./routes/itemRoutes');
+const contactRoutes = require('./routes/contactRoutes');
 
 require('dotenv').config();
 
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 
 // Routes
 app.use('/api', itemRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Connect to Database
 connectDB();
