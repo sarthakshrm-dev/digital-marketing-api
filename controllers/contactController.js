@@ -1,7 +1,7 @@
 const axios = require('axios');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
-const connectDB = require('./config/database');
+const connectDB = require('../config/database');
 
 const sendMail = async ({ name, email, message }) => {
     const transporter = nodemailer.createTransport({

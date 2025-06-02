@@ -1,5 +1,5 @@
 const Item = require('../models/itemModel');
-const connectDB = require('./config/database');
+const connectDB = require('../config/database');
 
 // Get all items
 exports.getAllItems = async (req, res) => {
