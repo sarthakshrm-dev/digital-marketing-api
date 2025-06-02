@@ -49,7 +49,7 @@ exports.handleContactForm = async (req, res) => {
 
         res.status(200).json({ success: true, message: 'Message received! Sending email in background.' });
 
-        sendMail({ name, email, message }).catch((err) =>
+        await sendMail({ name, email, message }).catch((err) =>
             console.error('Error sending email in background:', err)
         );
     } catch (error) {
