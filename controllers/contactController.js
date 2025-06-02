@@ -1,6 +1,7 @@
 const axios = require('axios');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
+const connectDB = require('./config/database');
 
 const sendMail = async ({ name, email, message }) => {
     const transporter = nodemailer.createTransport({
@@ -30,6 +31,7 @@ const sendMail = async ({ name, email, message }) => {
 };
 
 exports.handleContactForm = async (req, res) => {
+      await connectDB();
     const { name, email, message, token } = req.body;
 
       if (!name || !email || !message || !token) {

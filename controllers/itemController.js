@@ -1,8 +1,10 @@
 const Item = require('../models/itemModel');
+const connectDB = require('./config/database');
 
 // Get all items
 exports.getAllItems = async (req, res) => {
     try {
+            await connectDB();
         const items = await Item.find();
         res.status(200).json(items?.[0]);
     } catch (err) {
@@ -13,6 +15,7 @@ exports.getAllItems = async (req, res) => {
 // Create a new item
 exports.createItem = async (req, res) => {
     try {
+            await connectDB();
         await Item.deleteMany({});
 
         const newItem = new Item(req.body);
@@ -26,6 +29,7 @@ exports.createItem = async (req, res) => {
 // Update an item
 exports.updateItem = async (req, res) => {
     try {
+            await connectDB();
         // Find the item first to make sure it exists
         const item = await Item.findOne();
         if (!item) return res.status(404).json({ error: 'Item not found' });
