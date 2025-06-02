@@ -9,9 +9,14 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware
+const corsOptions = {
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.get('/', (req, res) => {
     res.send("Welcome to the api's")
