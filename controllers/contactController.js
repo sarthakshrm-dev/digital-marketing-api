@@ -2,7 +2,7 @@ const axios = require('axios');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-const sendMail = async ({ name, email, message }) => {
+const sendMail = async ({ name, email, message, phone }) => {
     const transporter = nodemailer.createTransport({
         host: "smtp.hostinger.com",
         port: 465,
@@ -21,6 +21,7 @@ const sendMail = async ({ name, email, message }) => {
         html: `
       <h3>Name: ${name}</h3>
       <p>Email: ${email}</p>
+      <p>Phone No.: ${phone}</p>
       <p>Message:</p>
       <p>${message}</p>
     `,
@@ -30,7 +31,7 @@ const sendMail = async ({ name, email, message }) => {
 };
 
 exports.handleContactForm = async (req, res) => {
-    const { name, email, message, token } = req.body;
+    const { name, email, message, phone, token } = req.body;
 
       if (!name || !email || !message || !token) {
         return res.status(400).json({ error: 'All fields including reCAPTCHA are required' });
@@ -45,11 +46,11 @@ exports.handleContactForm = async (req, res) => {
           return res.status(400).json({ error: 'reCAPTCHA verification failed' });
         }
 
-        await sendMail({ name, email, message }).catch((err) =>
+        await sendMail({ name, email, message, phone }).catch((err) =>
             console.error('Error sending email in background:', err)
         );
 
-        res.status(200).json({ success: true, message: 'Message received! Sending email in background.' });
+        res.status(200).json({ success: true, message: 'Email Sent!' });
     } catch (error) {
         console.error('Error in contact API:', error);
         res.status(500).json({ error: 'Something went wrong' });
